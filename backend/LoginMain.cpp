@@ -8,19 +8,19 @@ int main(){
 	std::string Username;
 	std::string line;
 	std::stringstream current;
-	std::ifstream stream;
+	std::ifstream ifstream;
 	std::string Password;
 	std::string PasswordPlaceholder;
 	std::string UsernamePlaceholder;
 	std::vector <std::string> Usernames;
 	std::vector <std::string> Passwords;
 
-	stream.open("Login.txt");
-	if(!stream){
+	ifstream.open("Login.txt");
+	if(!ifstream){
 		std::cout << "Error opening file, please try again" << std::endl;
 		return 0;
 	}
-	while(std::getline(stream,line)){
+	while(std::getline(ifstream,line)){
 		current.clear();
 	        current << line;
 		current >> UsernamePlaceholder;
@@ -28,6 +28,12 @@ int main(){
 		Usernames.push_back(UsernamePlaceholder);
 		Passwords.push_back(PasswordPlaceholder);
 	}
+
+	for(int i = 0; i < Usernames.size(); i++){
+		std::cout << Usernames.at(i) << " " << Passwords.at(i) << std::endl;
+	}
+
+	ifstream.close();
 
 
 /*
@@ -98,10 +104,10 @@ int main(){
 				if(Username == Usernames.at(j)){
 					bool UsernameEntered = true;
 					while(UsernameEntered == true){
-						int AttemptsLeft = 5;
+						int AttemptsLeft;
 						std::cout << "Enter a password" << std::endl;
 						std::cin >> Password;
-						for(int AttemptsLeft = 5; AttemptsLeft > 0; AttemptsLeft--){
+						for(AttemptsLeft = Usernames.size()+1; AttemptsLeft > 0; AttemptsLeft--){
 							if(Password !=Passwords.at(j)){
 								std::cout << "Password incorrect, please try again" << std::endl;
 								std::cin >> Password;
@@ -124,7 +130,7 @@ int main(){
 					break;
 				}
 			}
-			if(i >= 5){
+			if(i >= Usernames.size()+1){
 				std::cout << "Too many attempts, quitting now" << std::endl;
 				return 0;
 			}
@@ -133,8 +139,29 @@ int main(){
 	}
 
 	if(Register == true){
-		std::cout << "Registering process not computed yet, please try again later" << std::endl;
-		return 0;
+		int VectorSize;
+		std::cout << "Please enter your email: ";
+		std::cin >> UsernamePlaceholder;
+		std::cout << "Now please enter your password: ";
+		std::cin >> PasswordPlaceholder;
+		std::fstream ofstream;
+		ofstream.open("Login.txt", std::ios::in | std::ios::out);
+		if(!ofstream){
+			std::cout << "File failed to open, please try again" << std::endl;
+			return 0;
+		}
+		ifstream.open("Login.txt");
+		for(int i = 0; i < Usernames.size(); i++){
+			while(std::getline(ofstream, line)){
+				VectorSize++;
+				if(VectorSize == Usernames.size()){
+					ofstream << UsernamePlaceholder << " " << PasswordPlaceholder;
+					ofstream.close();
+				}	
+			}
+		}
+	//	ofstream << UsernamePlaceholder << " " << PasswordPlaceholder;
+
 	}
 
 
