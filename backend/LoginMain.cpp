@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cmath>
 
 
 int main(){
@@ -106,12 +107,13 @@ int main(){
 	std::cout << "Enter a username" << std::endl;
 	if(Login == true){
 		do {
+			if(Username != Usernames.at(sqrt(i)) && i > 0){
+				std::cout << "Please enter a valid email" << std::endl;
+			}
 			std::cin >> Username;
-			for(int j = 0; j <= Usernames.size()-1; j++){
+			for(int j = 0; j <= *ptr-1; j++){
 				if(Username != Usernames.at(j)){
 					i++;
-					std::cout << "Please enter a valid email" << std::endl;
-					break;
 				}
 				else if(Username == Usernames.at(j)){
 					bool UsernameEntered = true;
@@ -119,7 +121,7 @@ int main(){
 						int AttemptsLeft;
 						std::cout << "Enter a password" << std::endl;
 						std::cin >> Password;
-						for(AttemptsLeft = Usernames.size()+1; AttemptsLeft >= 0; AttemptsLeft--){
+						for(AttemptsLeft = *ptr; AttemptsLeft >= 0; AttemptsLeft--){
 							if(Password !=Passwords.at(j)){
 								if(AttemptsLeft == 1){
 									std::cout << "Too many incorrect attempts, please restart the program and try again" << std::endl;
@@ -134,22 +136,16 @@ int main(){
 								std::cout << "Connected" << std::endl;
 								return 0;
 							}
-							/*
-							else if(Password != Passwords.at(j) && (AttemptsLeft == 1)){
-								std::cout << "Too many incorrect attempts, please restart the program and try again" << std::endl;
-								return 0;
-							}*/
 						}
 						UsernameEntered = false;
 					}
 				}
-				else if(Username != Usernames.at(j) && j < Usernames.size()){
+				else if(Username != Usernames.at(j) && j < *ptr){
 					std::cout << "Username incorrect, please try again" << std::endl;
 					continue;
 				}
 			}
-			if(i >= 5){
-				std::cout << "I's value: " << i << std::endl;
+			if(i >= pow(*ptr, 2)){
 				std::cout << "Too many attempts, quitting now" << std::endl;
 				return 0;
 			}
@@ -158,7 +154,6 @@ int main(){
 	}
 
 	if(Register == true){
-	//	int VectorSize;
 		std::cout << "Please enter your email: ";
 		std::cin >> UsernamePlaceholder;
 		std::cout << "Now please enter your password: ";
