@@ -8,32 +8,42 @@ int main(){
 	std::string Username;
 	std::string line;
 	std::stringstream current;
-	std::ifstream ifstream;
+	std::fstream fstream;
+	std::ofstream ofstream;
 	std::string Password;
 	std::string PasswordPlaceholder;
 	std::string UsernamePlaceholder;
 	std::vector <std::string> Usernames;
 	std::vector <std::string> Passwords;
-
-	ifstream.open("Login.txt");
-	if(!ifstream){
+	int VectorSize;
+	int* ptr = &(VectorSize);
+	
+	fstream.open("Login.txt");
+	if(!fstream){
 		std::cout << "Error opening file, please try again" << std::endl;
 		return 0;
 	}
-	while(std::getline(ifstream,line)){
+	while(std::getline(fstream,line)){
 		current.clear();
 	        current << line;
+		VectorSize++;
 		current >> UsernamePlaceholder;
 		current >> PasswordPlaceholder;
+		std::cout << UsernamePlaceholder << " " << PasswordPlaceholder << std::endl;
 		Usernames.push_back(UsernamePlaceholder);
 		Passwords.push_back(PasswordPlaceholder);
 	}
+	fstream.close();
 
+
+// For testing the file stream
+/*
 	for(int i = 0; i < Usernames.size(); i++){
 		std::cout << Usernames.at(i) << " " << Passwords.at(i) << std::endl;
 	}
 
-	ifstream.close();
+*/
+
 
 
 /*
@@ -92,24 +102,31 @@ int main(){
 		}
 	}
 
-
-
-
+	int i;
+	std::cout << "Enter a username" << std::endl;
 	if(Login == true){
 		do {
-			int i;
-			std::cout << "Enter a username" << std::endl;
 			std::cin >> Username;
-			for(int j = 0; j < Usernames.size(); j++){
-				if(Username == Usernames.at(j)){
+			for(int j = 0; j <= Usernames.size()-1; j++){
+				if(Username != Usernames.at(j)){
+					i++;
+					std::cout << "Please enter a valid email" << std::endl;
+					break;
+				}
+				else if(Username == Usernames.at(j)){
 					bool UsernameEntered = true;
 					while(UsernameEntered == true){
 						int AttemptsLeft;
 						std::cout << "Enter a password" << std::endl;
 						std::cin >> Password;
-						for(AttemptsLeft = Usernames.size()+1; AttemptsLeft > 0; AttemptsLeft--){
+						for(AttemptsLeft = Usernames.size()+1; AttemptsLeft >= 0; AttemptsLeft--){
 							if(Password !=Passwords.at(j)){
+								if(AttemptsLeft == 1){
+									std::cout << "Too many incorrect attempts, please restart the program and try again" << std::endl;
+									return 0;
+								}
 								std::cout << "Password incorrect, please try again" << std::endl;
+								std::cout << i << std::endl;
 								std::cin >> Password;
 								continue;
 							}
@@ -117,20 +134,22 @@ int main(){
 								std::cout << "Connected" << std::endl;
 								return 0;
 							}
+							/*
+							else if(Password != Passwords.at(j) && (AttemptsLeft == 1)){
+								std::cout << "Too many incorrect attempts, please restart the program and try again" << std::endl;
+								return 0;
+							}*/
 						}
 						UsernameEntered = false;
 					}
 				}
-				else if(Username != Usernames.at(j)){
-					i++;
+				else if(Username != Usernames.at(j) && j < Usernames.size()){
+					std::cout << "Username incorrect, please try again" << std::endl;
 					continue;
 				}
-				else if(Username != Usernames.at(j) && j >= Usernames.size()){
-					std::cout << "Username incorrect, please try again" << std::endl;
-					break;
-				}
 			}
-			if(i >= Usernames.size()+1){
+			if(i >= 5){
+				std::cout << "I's value: " << i << std::endl;
 				std::cout << "Too many attempts, quitting now" << std::endl;
 				return 0;
 			}
@@ -139,34 +158,68 @@ int main(){
 	}
 
 	if(Register == true){
-		int VectorSize;
+	//	int VectorSize;
 		std::cout << "Please enter your email: ";
 		std::cin >> UsernamePlaceholder;
 		std::cout << "Now please enter your password: ";
 		std::cin >> PasswordPlaceholder;
-		std::fstream ofstream;
-		ofstream.open("Login.txt", std::ios::in | std::ios::out);
-		if(!ofstream){
+		fstream.open("Login.txt");
+		if(!fstream){
 			std::cout << "File failed to open, please try again" << std::endl;
 			return 0;
 		}
-		ifstream.open("Login.txt");
-		for(int i = 0; i < Usernames.size(); i++){
-			while(std::getline(ofstream, line)){
-				VectorSize++;
-				if(VectorSize == Usernames.size()){
-					ofstream << UsernamePlaceholder << " " << PasswordPlaceholder;
-					ofstream.close();
-				}	
+		else if(fstream){
+			for(int i = 0; i < Usernames.size(); i++){
+				int VectorSizeCopy;
+				while(std::getline(fstream, line)){
+					std::cout << "Testing 3" << std::endl;
+					VectorSizeCopy++;
+					if(VectorSizeCopy == *ptr){
+						fstream << UsernamePlaceholder << " " << PasswordPlaceholder << "\n";
+						fstream.close();
+						break;
+					}	
+				}
 			}
 		}
-	//	ofstream << UsernamePlaceholder << " " << PasswordPlaceholder;
-
 	}
 
+	std::ifstream ifstream;	
+	ifstream.open("Login.txt");
+	if(!ifstream){
+		std::cout << "Error opening file, please try again" << std::endl;
+		return 0;
+	}
+	while(std::getline(ifstream,line)){
+		current.clear();
+	        current << line;
+		current >> UsernamePlaceholder;
+		current >> PasswordPlaceholder;
+		std::cout << UsernamePlaceholder << " " << PasswordPlaceholder << std::endl;
+	}
+	ifstream.close();
 
+		
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
