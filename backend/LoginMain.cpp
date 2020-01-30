@@ -46,33 +46,6 @@ int main(){
 */
 
 
-
-/*
-	while(true){
-		int i;
-		std::cout << "Enter a username" << std::endl;
-		std::cin >> Username;
-		if(Username == Usernames.at(i)){
-			std::cout << "Enter a password" << std::endl;
-			std::cin >> Password;
-			if(Password != Passwords.at(i)){
-				std::cout << "Password incorrect, please try again" << std::endl;
-			}
-			else if(Password == Passwords.at(i)){
-				std::cout << "Connected" << std::endl;
-				break;
-			}
-		}
-		else if(Username != Usernames.at(i) && i >= Usernames.size()){
-			std::cout << "Username not in system, please restart and try again" << std::endl;
-			return 1;
-		}
-		else if(Username != Usernames.at(i)){
-			i++;
-			std::cout << Usernames.size() << std::endl;
-		}
-*/
-	
 	bool Register = false;
 	bool Login = false;
 	char response;
@@ -128,7 +101,6 @@ int main(){
 									return 0;
 								}
 								std::cout << "Password incorrect, please try again" << std::endl;
-								std::cout << i << std::endl;
 								std::cin >> Password;
 								continue;
 							}
@@ -155,9 +127,9 @@ int main(){
 
 	if(Register == true){
 		std::cout << "Please enter your email: ";
-		std::cin >> UsernamePlaceholder;
+		std::cin >> Username;
 		std::cout << "Now please enter your password: ";
-		std::cin >> PasswordPlaceholder;
+		std::cin >> Password;
 		fstream.open("Login.txt");
 		if(!fstream){
 			std::cout << "File failed to open, please try again" << std::endl;
@@ -167,10 +139,9 @@ int main(){
 			for(int i = 0; i < Usernames.size(); i++){
 				int VectorSizeCopy;
 				while(std::getline(fstream, line)){
-					std::cout << "Testing 3" << std::endl;
 					VectorSizeCopy++;
 					if(VectorSizeCopy == *ptr){
-						fstream << UsernamePlaceholder << " " << PasswordPlaceholder << "\n";
+						fstream << Username << " " << Password << "\n";
 						fstream.close();
 						break;
 					}	
@@ -188,9 +159,9 @@ int main(){
 	while(std::getline(ifstream,line)){
 		current.clear();
 	        current << line;
-		current >> UsernamePlaceholder;
-		current >> PasswordPlaceholder;
-		std::cout << UsernamePlaceholder << " " << PasswordPlaceholder << std::endl;
+		current >> Username;
+		current >> Password;
+		std::cout << Username << " " << Password << std::endl;
 	}
 	ifstream.close();
 
