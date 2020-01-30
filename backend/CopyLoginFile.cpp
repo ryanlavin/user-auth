@@ -6,9 +6,6 @@
 #include "CopyLoginFile.h"
 
 LoginFile::LoginFile(const char* filePath){
-	//std::vector<std::string> Usernames;
-	//std::vector<std::string> Passwords;
-
 	std::fstream fstream;
 
 	fstream.open(filePath);
@@ -25,16 +22,9 @@ LoginFile::LoginFile(const char* filePath){
 		current >> Username;
 		current >> Password;
 		Account newAccount(Username, Password);
-		//(Usernames.push_back(Username));
-		//(Passwords.push_back(Password));
 		list.push_back(newAccount);
 	}
 
 	std::cout << list.size() << std::endl;
-/*
-	for(int i = 0; i < Usernames.size(); i++){
-		std::cout <<  << std::endl;
-	}
-	*/
 }
 

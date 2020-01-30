@@ -12,11 +12,7 @@ public:
 
 
 private:
-//	std::vector<Usernames>;
-//	std::vector<Passwords>;
 	std::vector<Account> list;
-
-
 
 };
 #endif

@@ -11,6 +11,7 @@ public:
 	std::string GetUsername();
 	std::string GetPassword();
 	~Account();
+	void static Prompt();
 
 private:
 	std::string Username;

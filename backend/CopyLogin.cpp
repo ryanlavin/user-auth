@@ -7,12 +7,12 @@
 #include "CopyLogin.h"
 
 Account::Account(std::string Username, std::string Password){
-	Account::Username = Username;
-	Account::Password = Password;
+	this->Username = Username;
+	this->Password = Password;
 }
 
 Account::~Account(){
-
+//Nothing to delete
 }
 
 std::string Account::GetUsername(){
@@ -24,38 +24,37 @@ std::string Account::GetPassword(){
 }
 
 
-/*
+
 void Account::Prompt(){
 	char response;
 	std::cout << "Do you have an account? (Y/n)" << std::endl;
 	std::cin >> response;
 	if(response != 'Y' && response != 'n' && response != 'y'){
 		std::cout << "Invalid input, restart the program and try again" << std::endl;
-		return 0;
+		return;
 	}
 	if(response == 'Y' || response == 'y'){
-		Login = true;
+		std::cout << "Account::Login will go here" << std::endl;
+		return;
 	}
 	if(response == 'N' || response == 'n'){
-		Login = false;
 		std::cout << "Would you like to create an account? (Y/n)" << std::endl;
 		std::cin >> response;
 		if(response != 'Y' && response != 'n' && response != 'y'){
 			throw "Invalid input, restart the program and try again";
 		}
 		if(response == 'Y' || response == 'y'){
-			Register = true;
-			Login = false;
+			std::cout << "Account::Register would go here" << std::endl;
+			return;
 		}
 		if(response == 'N' || response == 'n'){
 			throw "Quitting program...";
 		}
 	}
-*/
+
 
 /*
 void Account::Login(){
-	if(Login == true){
 		do {
 			int i;
 			std::cout << "Enter a username" << std::endl;
@@ -132,4 +131,4 @@ void GetFstream(std::fstream fstream){
 	return;
 }
 */
-
+}
