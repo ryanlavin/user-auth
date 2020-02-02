@@ -5,11 +5,12 @@
 #include <vector>
 #include "CopyLoginFile.h"
 #include <map>
+#define DEBUG
 
 
-LoginFile::LoginFile(const char* filePath){
+std::map<std::string, std::string> FileReader::OpenDatabase(const char* filePath){
 	std::fstream fstream;
-	
+	std::map<std::string, std::string> MyMap;
 	fstream.open(filePath);
 	if(!fstream){
 		throw "Error opening file, please try again";
@@ -33,13 +34,6 @@ LoginFile::LoginFile(const char* filePath){
 		std::cout << word << " " << word1 << std::endl;
 	}	
 #endif	
-}	
-	
-	/*
-MappedAccount::MappedAccount(Key ID, std::string Username, std::string Password){
-	
-
+	return MyMap;
 }
 
-MappedAccount::
-*/
