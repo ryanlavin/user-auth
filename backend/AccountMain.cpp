@@ -1,4 +1,4 @@
-#include "CopyLoginFile.h"
+#include "FileReader.h"
 
 int main(){
 	Account instance("Login.txt");

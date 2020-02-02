@@ -3,8 +3,8 @@
 #include <vector>
 #include <sstream>
 #include <string>
-#include "CopyLogin.h"
-#include "CopyLoginFile.h"
+#include "Account.h"
+#include "FileReader.h"
 
 
 Account::Account(const char* filePath){
@@ -26,7 +26,11 @@ void Account::Prompt(){
 		return;
 	}
 	if(response == 'Y' || response == 'y'){
-		std::cout << Account::Login() << " is the answer" << std::endl;;
+		bool bool_login = Account::Login();
+		if(bool_login == true){
+			std::cout << "Connected" << std::endl;
+			return;
+		}	
 		return;
 	}
 	if(response == 'N' || response == 'n'){
@@ -47,7 +51,6 @@ void Account::Prompt(){
 
 
 bool Account::Login(){
-	
 	std::string Username;
 	std::string Password;
 	std::map<std::string, std::string>::iterator it;
@@ -72,15 +75,19 @@ bool Account::Register(){
 	std::string Username;
 	std::string Password;
 	std::map<std::string, std::string>::iterator it;
-	
+	std::fstream fstream;
+	std::stringstream current;
+	std::string line;
 	
 	std::cout << "Please enter your email: " << std::endl;
 	for(int i = 0; i < 5; i++){
 		std::cin >> Username;
-		if(Username.length() == 0){
+		if(Username.empty()){
 			std::cout << "Invalid input, please try again" << std::endl;
 			continue;
 		}
+		else
+			break;
 	}
 	it = MyMap.find(Username);
 	if(it != MyMap.end()){
@@ -90,11 +97,55 @@ bool Account::Register(){
 	
 	std::cout << "Please enter a password" << std::endl;
 	std::cin >> Password;
-	if(Password.length() == 0){
+	if(Password.empty()){
 		std::cout << "Invalid input, please try again" << std::endl;
 		return false;
 	}
+	MyMap.insert(std::pair<std::string,std::string>(Username,Password));
+	fstream.open("Login.txt");
+	if(!fstream){
+		std::cout << "File failed to open" << std::endl;
+		return false;
+	}
+	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){
+		std::string word = it->first;
+		std::string word1 = it->second;
+		fstream << word + " " + word1 + "\n";
+	}	
 	
-return true;		
+
+
+//	fstream << "\n";
+//	line = Username + " " + Password;
+//	fstream << line + "\n";
+/*
+	while(std::getline(fstream, line)){
+		if(fstream.eof()){
+			current.clear();
+			current << line;
+			current >> Username;
+			current >> Password;	
+			std::cout << current << std::endl;
+			current << fstream;
+			fstream.close();
+			break;
+	       	} 
+	}	
+*/		
+		
+		/* for(std::map<std::string, std::string>::iterator it = MyMap.end(); it > MyMap.end(); it++){
+		
+	}
+*/	
+
+
+#ifdef DEBUG
+	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){
+		std::string word = it->first;
+		std::string word1 = it->second;
+		std::cout << word << " " << word1 << std::endl;
+	}	
+#endif
+	return true;		
 }	
 
