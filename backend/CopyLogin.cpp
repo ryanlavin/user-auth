@@ -24,7 +24,7 @@ std::string Account::GetPassword(){
 }
 
 
-
+/*
 void Account::Prompt(){
 	char response;
 	std::cout << "Do you have an account? (Y/n)" << std::endl;
@@ -51,7 +51,7 @@ void Account::Prompt(){
 			throw "Quitting program...";
 		}
 	}
-
+*/
 
 /*
 void Account::Login(){
@@ -59,6 +59,9 @@ void Account::Login(){
 			int i;
 			std::cout << "Enter a username" << std::endl;
 			std::cin >> Username;
+			if(std::map<
+*/
+/*	
 			for(int j = 0; j < Usernames.size(); j++){
 				if(Username == Usernames.at(j)){
 					bool UsernameEntered = true;
@@ -89,6 +92,8 @@ void Account::Login(){
 					break;
 				}
 			}
+
+
 			if(i >= Usernames.size()+1){
 				std::cout << "Too many attempts, quitting now" << std::endl;
 				return 0;
@@ -97,7 +102,7 @@ void Account::Login(){
 		}while(Login == true);
 	}
 */
-
+//}
 /*
 void Account::Register(){
 	if(Register == true){
@@ -131,4 +136,3 @@ void GetFstream(std::fstream fstream){
 	return;
 }
 */
-}

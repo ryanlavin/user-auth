@@ -4,10 +4,12 @@
 #include <filesystem>
 #include <vector>
 #include "CopyLoginFile.h"
+#include <map>
+
 
 LoginFile::LoginFile(const char* filePath){
 	std::fstream fstream;
-
+	
 	fstream.open(filePath);
 	if(!fstream){
 		throw "Error opening file, please try again";
@@ -21,10 +23,23 @@ LoginFile::LoginFile(const char* filePath){
 	        current << line;
 		current >> Username;
 		current >> Password;
-		Account newAccount(Username, Password);
-		list.push_back(newAccount);
+		MyMap.insert(std::pair<std::string,std::string>(Username,Password));
 	}
 
-	std::cout << list.size() << std::endl;
+#ifdef DEBUG
+	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){
+		std::string word = it->first;
+		std::string word1 = it->second;
+		std::cout << word << " " << word1 << std::endl;
+	}	
+#endif	
+}	
+	
+	/*
+MappedAccount::MappedAccount(Key ID, std::string Username, std::string Password){
+	
+
 }
 
+MappedAccount::
+*/

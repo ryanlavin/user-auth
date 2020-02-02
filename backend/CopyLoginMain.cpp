@@ -3,6 +3,6 @@
 int main(){
 
 	LoginFile Read("Login.txt");
-	Account::Prompt();
+	//Account::Prompt();
 	return 0;
 }
