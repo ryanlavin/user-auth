@@ -40,7 +40,7 @@ void Account::Prompt(){
 			throw "Invalid input, restart the program and try again";
 		}
 		if(response == 'Y' || response == 'y'){
-			std::cout << Account::Register() << " yo yo yo" << std::endl;
+			Account::Register();
 			return;
 		}
 		if(response == 'N' || response == 'n'){
@@ -75,9 +75,6 @@ bool Account::Register(){
 	std::string Username;
 	std::string Password;
 	std::map<std::string, std::string>::iterator it;
-	std::fstream fstream;
-	std::stringstream current;
-	std::string line;
 	
 	std::cout << "Please enter your email: " << std::endl;
 	for(int i = 0; i < 5; i++){
@@ -102,42 +99,7 @@ bool Account::Register(){
 		return false;
 	}
 	MyMap.insert(std::pair<std::string,std::string>(Username,Password));
-	fstream.open("Login.txt");
-	if(!fstream){
-		std::cout << "File failed to open" << std::endl;
-		return false;
-	}
-	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){
-		std::string word = it->first;
-		std::string word1 = it->second;
-		fstream << word + " " + word1 + "\n";
-	}	
-	
-
-
-//	fstream << "\n";
-//	line = Username + " " + Password;
-//	fstream << line + "\n";
-/*
-	while(std::getline(fstream, line)){
-		if(fstream.eof()){
-			current.clear();
-			current << line;
-			current >> Username;
-			current >> Password;	
-			std::cout << current << std::endl;
-			current << fstream;
-			fstream.close();
-			break;
-	       	} 
-	}	
-*/		
-		
-		/* for(std::map<std::string, std::string>::iterator it = MyMap.end(); it > MyMap.end(); it++){
-		
-	}
-*/	
-
+	FileReader::WriteToDatabase(MyMap);
 
 #ifdef DEBUG
 	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){

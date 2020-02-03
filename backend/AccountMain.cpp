@@ -1,7 +1,7 @@
 #include "FileReader.h"
 
 int main(){
-	Account instance("Login.txt");
-	instance.Prompt();
+	Account Instance("Login.txt");
+	Instance.Prompt();
 	return 0;
 }

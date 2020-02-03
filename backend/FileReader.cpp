@@ -5,7 +5,6 @@
 #include <vector>
 #include "FileReader.h"
 #include <map>
-#define DEBUG
 
 
 std::map<std::string, std::string> FileReader::OpenDatabase(const char* filePath){
@@ -40,10 +39,16 @@ std::map<std::string, std::string> FileReader::OpenDatabase(const char* filePath
 
 void FileReader::WriteToDatabase(std::map<std::string, std::string> MyMap){
 	std::fstream fstream;
-	std::string line;
-	std::stringstream current;
-
+	std::map<std::string, std::string>::iterator it;
+	fstream.open("Login.txt");
 	if(!fstream){
-		throw "Error opening file, please try again";
+		throw "File failed to open";
 	}
+	for(std::map<std::string, std::string>::iterator it = MyMap.begin();it != MyMap.end(); it++){
+		std::string word = it->first;
+		std::string word1 = it->second;
+		fstream << word + " " + word1 + "\n";
+	}	
+	
+
 }
